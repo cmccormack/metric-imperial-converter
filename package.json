@@ -1,0 +1,23 @@
+{
+  "name": "metric-imperial-converter",
+  "version": "1.0.0",
+  "description": "Convert values between imperial and metric",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "convert",
+    "conversions",
+    "metric",
+    "imperial",
+    "fcc",
+    "freecodecamp"
+  ],
+  "author": "Christopher McCormack https://mackville.net",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "helmet": "^3.13.0"
+  }
+}
