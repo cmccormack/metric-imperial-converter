@@ -1,3 +1,4 @@
+const path = require("path")
 const helmet = require("helmet")
 const express = require("express")
 
@@ -10,6 +11,17 @@ app.set("port", process.env.PORT || 3000)
 
 app.use(helmet())
 
+app.set('views', path.resolve(__dirname, 'views'))
+app.set('view engine', 'pug')
+
+app.use(express.static(path.resolve(__dirname, "views")))
+
+app.route('/').get((req, res, next) => {
+  res.render('index', {
+    title: "Metric Imperial Converter",
+    header: "Metric Imperial Converter"
+  })
+})
 
 ///////////////////////////////////////////////////////////
 //  Start Express Server

@@ -1,0 +1,24 @@
+html
+    head
+        title= title
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        meta(name="author" content="Chris McCormack")
+
+        link(rel="stylesheet" type="text/css" href="./styles/styles.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500")
+    body
+        header
+            h1= header
+
+        main
+            section#example_usage
+                span.section-title Example Usage
+                pre /api/convert?input=4gal
+                pre /api/convert?input=1/2km
+                pre /api/convert?input=5.4/3lbs
+                pre /api/convert?input=kg
+            section#example_return
+                span.section-title Example Return
+                pre {initNum: 3.1, initUnit: 'mi', returnNum: 5, returnUnit: 'km', string: '3.1 miles converts to 5.00002 kilometers'}
+
+    
