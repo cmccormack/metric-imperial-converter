@@ -16,12 +16,7 @@ app.set('view engine', 'pug')
 
 app.use(express.static(path.resolve(__dirname, "views")))
 
-app.route('/').get((req, res, next) => {
-  res.render('index', {
-    title: "Metric Imperial Converter",
-    header: "Metric Imperial Converter"
-  })
-})
+require('./routes/routes.js')(app)
 
 ///////////////////////////////////////////////////////////
 //  Start Express Server
