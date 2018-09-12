@@ -13,10 +13,12 @@ module.exports = (app) => {
 
   const apiRouter = require('./api')()
 
+
   ///////////////////////////////////////////////////////////
   // API
   ///////////////////////////////////////////////////////////
   app.use("/api", apiRouter)
+
 
   ///////////////////////////////////////////////////////////
   // Root Router Handler, Serves Pug rendered index
@@ -36,9 +38,6 @@ module.exports = (app) => {
   app.use((err, req, res, next) => {
     console.error(err.message)
 
-    res.json({
-      success: false,
-      error: err.message
-    })
+    res.send(err.message)
   })
 }
