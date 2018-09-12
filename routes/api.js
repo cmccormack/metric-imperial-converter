@@ -7,7 +7,7 @@ const units = {
     type: 'imperial',
     conversion: {
       fn: x => x * 3.78541,
-      unit: 'L'
+      unit: 'l'
     }
   },
   'lbs': {
@@ -75,13 +75,13 @@ module.exports = () => {
       // Split valid input into number and unit.
       let number = inputMatch[1] === '' ? '1' : inputMatch[1]
       let unit = inputMatch[2].toLowerCase()
-
+      
       // Find the quotient if fractions are provided
       number = number.split('/').map(Number).reduce((a, v) => a/v)
       if (number === Infinity) {
         return next(Error("invalid number"))
       }
-
+      
       // Validate unit
       if (!(unit && Object.keys(units).includes(unit))) {
         return next(Error("invalid unit"))
