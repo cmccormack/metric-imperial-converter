@@ -72,8 +72,7 @@ module.exports = () => {
         return next(Error("invalid number and unit"))
       }
 
-      // Split valid input into number and unit.  
-      console.log(inputMatch.slice(1, 3))
+      // Split valid input into number and unit.
       let number = inputMatch[1] === '' ? '1' : inputMatch[1]
       let unit = inputMatch[2].toLowerCase()
 
