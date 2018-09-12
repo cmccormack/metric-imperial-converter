@@ -1,8 +1,56 @@
 const router = require("express").Router()
 const path = require("path")
 
-const units = ['gal', 'lbs', 'mi', 'km', 'kg', 'L']
-const units_r = [...units].reverse()
+const units = {
+  'gal': {
+    fullname: 'gallon',
+    type: 'imperial',
+    conversion: {
+      fn: x => x * 3.78541,
+      unit: 'L'
+    }
+  },
+  'lbs': {
+    fullname: 'pound',
+    type: 'imperial',
+    conversion: {
+      fn: x => x * 0.453592,
+      unit: 'kg'
+    }
+  },
+  'mi': {
+    fullname: 'mile',
+    type: 'imperial',
+    conversion: {
+      fn: x => x * 1.60934,
+      unit: 'km'
+    }
+  },
+  'km': {
+    fullname: 'kilometer',
+    type: 'metric',
+    conversion: {
+      fn: x => x / 1.60934,
+      unit: 'mi'
+    }
+  },
+  'kg': {
+    fullname: 'kilogram',
+    type: 'metric',
+    conversion: {
+      fn: x => x / 0.453592,
+      unit: 'lbs'
+    }
+  },
+  'l': {
+    fullname: 'litre',
+    type: 'metric',
+    conversion: {
+      fn: x => x / 3.78541,
+      unit: 'gal'
+    }
+  }
+}
 
 module.exports = () => {
 
@@ -27,7 +75,7 @@ module.exports = () => {
       // Split valid input into number and unit.  
       console.log(inputMatch.slice(1, 3))
       let number = inputMatch[1] === '' ? '1' : inputMatch[1]
-      let unit = inputMatch[2]
+      let unit = inputMatch[2].toLowerCase()
 
       // Find the quotient if fractions are provided
       number = number.split('/').map(Number).reduce((a, v) => a/v)
@@ -36,13 +84,26 @@ module.exports = () => {
       }
 
       // Validate unit
-      if (!(unit && units.includes(unit))) {
+      if (!(unit && Object.keys(units).includes(unit))) {
         return next(Error("invalid unit"))
       }
 
       // Convert between units
-
-      res.json({number, unit})
+      const pluralize = (num, name) => num === 1 ? name : `${name}s`
+      const {fullname, conversion} = units[unit]
+      const returnNum = conversion.fn(number)
+      const returnUnit = conversion.unit
+      let string = `${number} ${pluralize(number, fullname)}`
+      string += " converts to "
+      string += `${returnNum} ${pluralize(returnNum, units[returnUnit].fullname)}`
+      const returnobj = {
+        initNum: number,
+        initUnit: unit,
+        returnNum,
+        returnUnit,
+        string
+      }
+      res.json(returnobj)
     })
 
   return router
