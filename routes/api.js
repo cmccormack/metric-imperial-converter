@@ -91,19 +91,19 @@ module.exports = () => {
       // Convert between units
       const pluralize = (num, name) => num === 1 ? name : `${name}s`
       const {fullname, conversion} = units[unit]
-      const returnNum = conversion.fn(number)
+      const returnNum = +(conversion.fn(number)).toFixed(5)
       const returnUnit = conversion.unit
-      let string = `${number} ${pluralize(number, fullname)}`
-      string += " converts to "
+      let string = `${number} ${pluralize(number, fullname)} converts to `
       string += `${returnNum} ${pluralize(returnNum, units[returnUnit].fullname)}`
-      const returnobj = {
+
+      res.json({
         initNum: number,
         initUnit: unit,
         returnNum,
         returnUnit,
         string
-      }
-      res.json(returnobj)
+      })
+
     })
 
   return router
