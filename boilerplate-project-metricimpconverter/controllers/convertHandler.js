@@ -61,14 +61,45 @@ const units = {
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    const number = input.split(/^([0-9/\.]*)([a-z]*)$/i)[1]
-    return number === '' ? '1' : number
+    let number = input.split(/^([0-9/\.]*)([a-z]*)$/i)[1]
+    
+    // Check if division is necessary and assign quotient to number if valid
+    const numParts = number.split('/')
+    if (numParts.length > 1) {
+      if (numParts.length > 2)  {
+        return null
+      }
+      number = numParts.reduce((a, v) => a/v)
+    }
+
+    // If no number provided, assume 1 unit
+    if (number === '') {
+      return 1
+    }
+
+    if (Number.isNaN(number) || number === Infinity) {
+      return null
+    }
+
+    return number
   }
   
   this.getUnit = function(input) {
-    var result;
-    
-    return result;
+
+    // Return null early if input is not a string
+    if (typeof input !== 'string') {
+      return null
+    }
+
+    let unit = input.split(/^([0-9/\.]*)([a-z]*)$/i)[2]
+    if (!unit) {
+      return null
+    }
+    // Validate unit exists and is one of known units
+    if (!Object.keys(units).includes(unit.toLowerCase())) {
+      return null
+    }
+    return unit;
   };
   
   this.getReturnUnit = function(initUnit) {
