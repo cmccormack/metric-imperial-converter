@@ -53,7 +53,7 @@ const server = app.listen(app.get("port"), () => {
           console.log('Tests are not valid:')
           console.log(error)
       }
-    }, 1500)
+    }, 500)
   }
 })
 
