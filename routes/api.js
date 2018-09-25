@@ -1,5 +1,4 @@
 const router = require("express").Router()
-const expect = require('chai').expect
 
 const ConvertHandler = require('../controllers/convertHandler.js')
 const convertHandler = new ConvertHandler()

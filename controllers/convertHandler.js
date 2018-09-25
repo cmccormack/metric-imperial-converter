@@ -81,7 +81,7 @@ function ConvertHandler() {
             return null
         }
 
-        return number
+        return +number
     }
 
     this.getUnit = function (input) {
