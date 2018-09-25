@@ -4,7 +4,6 @@ const path        = require('path')
 const helmet      = require('helmet')
 const express     = require('express')
 const bodyParser  = require('body-parser')
-const expect      = require('chai').expect
 const cors        = require('cors')
 const runner      = require('./test-runner')
 require('dotenv').config()
@@ -26,12 +25,6 @@ app.use(cors({origin: '*'})) //For FCC testing purposes only
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-//Index page (static HTML)
-// app.route('/')
-//   .get(function (req, res) {
-//     res.sendFile(process.cwd() + '/views/index.html')
-//   })
 
 //For FCC testing purposes
 require('./routes/fcctesting.js')(app)

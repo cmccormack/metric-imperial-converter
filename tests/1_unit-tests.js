@@ -102,7 +102,11 @@ suite('Unit Tests', function(){
   suite('Function convertHandler.spellOutUnit(unit)', function() {
     
     test('For Each Valid Unit Inputs', function(done) {
-      //see above example for hint
+      const input = ['gal', 'l', 'mi', 'km', 'lbs', 'kg']
+      const expect = ['gallon', 'liter', 'mile', 'kilometer', 'pound', 'kilogram']
+      input.forEach(function(ele, i) {
+        assert.equal(convertHandler.spellOutUnit(ele), expect[i])
+      })
       done()
     })
     
@@ -118,28 +122,38 @@ suite('Unit Tests', function(){
     })
     
     test('L to Gal', function(done) {
-      
-      //done()
+      const input = [18.9271, 'l']
+      const expected = 5
+      assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1) //0.1 tolerance
+      done()
     })
     
     test('Mi to Km', function(done) {
-      
-      //done()
+      const input = [3.10686, 'mi']
+      const expected = 5
+      assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1) //0.1 tolerance
+      done()
     })
     
     test('Km to Mi', function(done) {
-      
-      //done()
+      const input = [5, 'km']
+      const expected = 3.10686
+      assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1) //0.1 tolerance
+      done()
     })
     
     test('Lbs to Kg', function(done) {
-      
-      //done()
+      const input = [10, 'lbs']
+      const expected = 4.53592
+      assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1) //0.1 tolerance
+      done()
     })
     
     test('Kg to Lbs', function(done) {
-      
-      //done()
+      const input = [4.53592, 'kg']
+      const expected = 10
+      assert.approximately(convertHandler.convert(input[0], input[1]), expected, 0.1) //0.1 tolerance
+      done()
     })
     
   })
