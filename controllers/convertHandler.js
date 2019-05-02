@@ -61,6 +61,12 @@ const units = {
 function ConvertHandler() {
 
     this.getNum = function (input) {
+
+        // Return early if no value and no unit provided
+        if (!input) {
+            return null
+        }
+
         let number = input.split(/^([0-9/\.]*)([a-z]*)$/i)[1]
 
         // Check if division is necessary and assign quotient to number if valid
@@ -85,6 +91,11 @@ function ConvertHandler() {
     }
 
     this.getUnit = function (input) {
+
+        // Return early if no value and no unit provided
+        if (!input) {
+            return null
+        }
 
         // Return null early if input is not a string
         if (typeof input !== 'string') {
@@ -112,15 +123,20 @@ function ConvertHandler() {
         return units[unit.toLowerCase()].fullname;
     };
 
+    this.roundToFixed = function (initNum, precision) {
+        const offset = Math.pow(10, precision)
+        return Math.round(initNum * offset) / offset
+    };
+
     this.convert = function (initNum, initUnit) {
         const { conversion } = units[initUnit.toLowerCase()]
-        return conversion.fn(initNum);
+        return this.roundToFixed(conversion.fn(initNum), 5);
     };
 
     this.getString = function (initNum, initUnit, returnNum, returnUnit) {
-        let stringBuilder = `${initNum} ${ this.pluralize(initNum, this.spellOutUnit(initUnit))}`
+        let stringBuilder = `${initNum} ${this.pluralize(initNum, this.spellOutUnit(initUnit))}`
         stringBuilder += ' converts to '
-        stringBuilder += `${returnNum} ${this.pluralize(returnNum, this.spellOutUnit(returnUnit))}`
+        stringBuilder += `${this.roundToFixed(returnNum, 5)} ${this.pluralize(returnNum, this.spellOutUnit(returnUnit))}`
         return stringBuilder
     };
 
